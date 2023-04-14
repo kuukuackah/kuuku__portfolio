@@ -195,3 +195,44 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('selected-theme', getCurrentTheme())
     localStorage.setItem('selected-icon', getCurrentIcon())
 })
+
+// select the form element
+const form = document.querySelector('.contact__form');
+
+// add event listener for form submission
+form.addEventListener('submit', (event) => {
+  // prevent the default form submission behavior
+  event.preventDefault();
+
+  // get the values of the input fields
+  const name = form.querySelector('input[name="name"]').value;
+  const email = form.querySelector('input[name="email"]').value;
+  const project = form.querySelector('input[name="project"]').value;
+  const message = form.querySelector('textarea[name="message"]').value;
+
+  // create a new XMLHttpRequest object
+  const xhr = new XMLHttpRequest();
+
+  // set the HTTP method and URL
+  xhr.open('POST', 'https://formspree.io/f/mzbqkozw');
+
+  // set the Content-Type header
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  // set the data to be sent as JSON
+  xhr.send(JSON.stringify({
+    to_email: 'ackahkuuku@gmail.com',
+    from_name: name,
+    from_email: email,
+    project,
+    message
+  }));
+
+  // reset the form
+  form.reset();
+
+  // show a success message
+  alert('Message sent successfully!');
+});
+
+
